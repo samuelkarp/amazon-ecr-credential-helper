@@ -19,6 +19,14 @@ SOURCEDIR=./ecr-login
 SOURCES := $(shell find $(SOURCEDIR) -name '*.go')
 LOCAL_BINARY=bin/local/docker-credential-ecr-login
 
+.PHONY: docker
+docker: Dockerfile
+	docker run --rm \
+	-e TARGET_GOOS=$(TARGET_GOOS) \
+	-e TARGET_GOARCH=$(TARGET_GOARCH) \
+	-v $(shell pwd)/bin:/go/src/github.com/awslabs/amazon-ecr-credential-helper/bin \
+	$(shell docker build -q .)
+
 .PHONY: build
 build: $(LOCAL_BINARY)
 
@@ -28,7 +36,7 @@ $(LOCAL_BINARY): $(SOURCES)
 
 .PHONY: test
 test:
-	. ./scripts/shared_env && go test -v -timeout 30s -short -cover ./ecr-login/...
+	. ./scripts/shared_env && go test -v -timeout 30s -short -cover $(shell go list ./ecr-login/... | grep -v /vendor/)
 
 .PHONY: gogenerate
 gogenerate:

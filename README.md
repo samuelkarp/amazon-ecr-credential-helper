@@ -1,6 +1,8 @@
 # Amazon ECR Docker Credential Helper
 
-The Amazon ECR Docker Credential Helper is a 
+[![Build Status](https://travis-ci.org/awslabs/amazon-ecr-credential-helper.svg?branch=master)](https://travis-ci.org/awslabs/amazon-ecr-credential-helper)
+
+The Amazon ECR Docker Credential Helper is a
 [credential helper](https://github.com/docker/docker-credential-helpers)
 for the Docker daemon that makes it easier to use
 [Amazon EC2 Container Registry](https://aws.amazon.com/ecr/).
@@ -51,6 +53,11 @@ greater, and you must have `git` and `make` installed on your system.
 Clone this repository into your existing `GOPATH` under
 `src/github.com/awslabs/amazon-ecr-credential-helper`, then run `make`.  The
 resulting binary can be found in `bin/local/docker-credential-ecr-login`.
+
+Or if you already have Docker environment, just clone this repository anywhere
+and run `make docker`. This command builds the binary by Go inside docker container and
+output it to local directory. With `TARGET_GOOS` environment variable, you can also
+cross complie the binary.
 
 ## Troubleshooting
 
