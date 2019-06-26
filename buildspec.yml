@@ -3,6 +3,7 @@ version: 0.2
 phases:
   install:
     commands:
+      - ./scripts/hack/codepipeline-git-checkout.sh
       - ./scripts/hack/symlink-gopath-codebuild.sh
       - cd /go/src/github.com/awslabs/amazon-ecr-credential-helper
   pre_build:
